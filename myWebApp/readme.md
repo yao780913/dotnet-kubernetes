@@ -71,3 +71,16 @@ if ($oldPath.Split(';') -inotcontains 'C:\minikube'){ `
     dotnet-kub-app   LoadBalancer   10.110.255.218   <pending>     5000:30949/TCP   8s
     ```
 - 測試 `minikube service dotnet-kub-app`
+
+### Scale deployment
+- `kubectl scale deployment dotnet-kub-app --replicas=3`
+- `kubectl get pods`
+  ```text
+    NAME                                READY   STATUS              RESTARTS       AGE
+    dotnet-kub-app-7668865d96-bl24s     1/1     Running             0              28s
+    dotnet-kub-app-7668865d96-pk6ff     0/1     ContainerCreating   0              4s
+    dotnet-kub-app-7668865d96-pl2jj     1/1     Running             0              4s
+    ```
+### Delete deployment and service
+- `kubectl delete deployment dotnet-deployment`
+- `kubectl delete service dotnet-service`
