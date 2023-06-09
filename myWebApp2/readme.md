@@ -11,15 +11,22 @@
 - **app** - http://localhost:5000/
 - **adminer** - http://localhost:8080/
 
-
 ## Push Image to Docker Hub
 - `docker build -t billyao78/dotnet-kub-app-2 .`
 - `docker push billyao78/dotnet-kub-app-2`
 
 ## Apply yaml files
--  **pv** and **pvc** - `kubectl apply -f postgres-pv.yml -f postgres-pvc.yml`
+- **pv** and **pvc** - `kubectl apply -f postgres-pv.yml -f postgres-pvc.yml`
+- **configMap** - `kubectl apply -f environment.yml`
 - **app** and **db** - `kubectl apply -f postgres-db.yml -f dotnet-kub-app-2.yml`
 - **minikube** - `minikube service postgres-service adminer-service dotnet-service-2`
 
-> **Host = {serviceName}**  
+### 修改 Connection String
+**Host = {serviceName}**
 > 修改 Host=`postgres-service`;port=5432;Database=SchoolDB;Username=postgres;Password=postgres
+
+### Delete service and deployment
+- **delete services** `kubectl delete service postgres-service adminer-service dotnet-service-2`
+- **delete deployments** `kubectl delete deployment postgres-deployment adminer-deployment dotnet-deployment-2`
+
+
