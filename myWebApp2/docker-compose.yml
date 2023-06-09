@@ -1,7 +1,9 @@
 ﻿services:
-  db:
+  postgres-db:
     image: postgres:12.1-alpine
     restart: always
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?database password not set}
     volumes:
@@ -19,6 +21,6 @@
     ports:
       - 5000:80
     depends_on: 
-      - db
+      - postgres-db
 volumes:
   postgres-data:

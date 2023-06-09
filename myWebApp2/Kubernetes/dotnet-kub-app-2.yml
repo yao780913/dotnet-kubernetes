@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnet-deployment-2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dotnet-kub-app-2
+  template:
+    metadata:
+      labels:
+        app: dotnet-kub-app-2
+    spec:
+      containers:
+        - name: dotnet-kub-app-2
+          image: billyao78/dotnet-kub-app-2:latest
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnet-service-2
+spec:
+  selector:
+      app: dotnet-kub-app-2
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 80
+  type: LoadBalancer
