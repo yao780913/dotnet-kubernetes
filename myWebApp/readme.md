@@ -1,4 +1,10 @@
+
 # Kubernetes
+
+## Push Image to Docker Hub
+- 準備 Dockerfile
+- `docker build -t billyao78/dotnet-app-2 .`
+- `docker push billyao78/dotnet-app-2`
 
 ## Install minikube
 [minikube start](https://minikube.sigs.k8s.io/docs/start/)
@@ -47,3 +53,21 @@ if ($oldPath.Split(';') -inotcontains 'C:\minikube'){ `
 
 - `minikube status`
 - `minikube dashboard`
+
+## Deployment by kubectl
+### Create deployment
+- `kubectl create deployment dotnet-kub-app --image=billyao78/dotnet-app-2`
+- `kubectl get deployments`
+  ```text
+    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+    dotnet-kub-app     1/1     1            1           2m30s
+    ```
+
+### Expose deployment with a Service
+- `kubectl expose deployment dotnet-kub-app --type=LoadBalancer --port=5000 --target-port=80`
+- `kubectl get services`
+    ```text
+    NAME             TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+    dotnet-kub-app   LoadBalancer   10.110.255.218   <pending>     5000:30949/TCP   8s
+    ```
+- 測試 `minikube service dotnet-kub-app`
