@@ -3,8 +3,8 @@
 
 ## Push Image to Docker Hub
 - 準備 Dockerfile
-- `docker build -t billyao78/dotnet-app-2 .`
-- `docker push billyao78/dotnet-app-2`
+- `docker build -t billyao78/dotnet-kub-app-1 .`
+- `docker push billyao78/dotnet-kub-app-1`
 
 ## Install minikube
 [minikube start](https://minikube.sigs.k8s.io/docs/start/)
@@ -56,7 +56,7 @@ if ($oldPath.Split(';') -inotcontains 'C:\minikube'){ `
 
 ## Deployment by kubectl
 ### Create deployment
-- `kubectl create deployment dotnet-kub-app --image=billyao78/dotnet-app-2`
+- `kubectl create deployment dotnet-kub-app --image=billyao78/dotnet-kub-app-1`
 - `kubectl get deployments`
   ```text
     NAME               READY   UP-TO-DATE   AVAILABLE   AGE
@@ -84,3 +84,7 @@ if ($oldPath.Split(';') -inotcontains 'C:\minikube'){ `
 ### Delete deployment and service
 - `kubectl delete deployment dotnet-deployment`
 - `kubectl delete service dotnet-service`
+
+## Create yml file for Deployment and Service
+- `kubectl apply -f deployment.yml -f service.yml`
+- `minikube service dotnet-service-1`
